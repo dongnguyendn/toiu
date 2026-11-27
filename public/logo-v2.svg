@@ -1,0 +1,195 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" width="100%" height="100%">
+  <defs>
+    <!-- Compass Rim Gradient -->
+    <linearGradient id="compassRimGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#06B6D4" />
+      <stop offset="50%" stopColor="#2563EB" />
+      <stop offset="100%" stopColor="#7C3AED" />
+    </linearGradient>
+
+    <!-- Paths Gradients -->
+    <linearGradient id="leftRoadGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#06B6D4" />
+      <stop offset="60%" stopColor="#2563EB" />
+      <stop offset="100%" stopColor="#4F46E5" />
+    </linearGradient>
+
+    <linearGradient id="rightRoadGrad" x1="100%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" stopColor="#7C3AED" />
+      <stop offset="50%" stopColor="#D946EF" />
+      <stop offset="100%" stopColor="#F59E0B" />
+    </linearGradient>
+
+    <!-- Chip Gradient -->
+    <linearGradient id="chipGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#3B82F6" />
+      <stop offset="100%" stopColor="#1D4ED8" />
+    </linearGradient>
+
+    <!-- AI Star Glow -->
+    <radialGradient id="aiStarGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.4" />
+      <stop offset="100%" stopColor="#F59E0B" stopOpacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Compass Outer Ring -->
+  <circle
+    cx="100"
+    cy="100"
+    r="78"
+    stroke="url(#compassRimGrad)"
+    strokeWidth="3.5"
+    strokeLinecap="round"
+    opacity="0.9"
+  />
+  
+  <!-- Dashed Concentric Inner Ring -->
+  <circle
+    cx="100"
+    cy="100"
+    r="70"
+    stroke="#E2E8F0"
+    strokeWidth="1"
+    strokeDasharray="3 4"
+    opacity="0.4"
+  />
+
+  <!-- Subtle grid lines in background -->
+  <line x1="100" y1="28" x2="100" y2="172" stroke="#E2E8F0" strokeWidth="0.5" opacity="0.2" />
+  <line x1="28" y1="100" x2="172" y2="100" stroke="#E2E8F0" strokeWidth="0.5" opacity="0.2" />
+
+  <!-- 4 Compass Cardinal Points (Protruding needle shapes) -->
+  <!-- NORTH -->
+  <path d="M 100 5 L 94 26 L 100 22 Z" fill="#06B6D4" />
+  <path d="M 100 5 L 100 22 L 106 26 Z" fill="#0284C7" />
+
+  <!-- SOUTH -->
+  <path d="M 100 195 L 95 174 L 100 178 Z" fill="#4F46E5" />
+  <path d="M 100 195 L 100 178 L 105 174 Z" fill="#3730A3" />
+
+  <!-- WEST -->
+  <path d="M 5 100 L 26 94 L 22 100 Z" fill="#0EA5E9" />
+  <path d="M 5 100 L 22 100 L 26 106 Z" fill="#0369A1" />
+
+  <!-- EAST -->
+  <path d="M 195 100 L 174 94 L 178 100 Z" fill="#6366F1" />
+  <path d="M 195 100 L 178 100 L 174 106 Z" fill="#4338CA" />
+
+  <!-- Background Stars / Sparkles -->
+  <path d="M 75 41 C 75 43 75 43 77 43 C 75 43 75 43 75 45 C 75 43 75 43 73 43 C 75 43 75 43 75 41" fill="#F59E0B" opacity="0.8" />
+  <path d="M 165 71 C 165 73 165 73 167 73 C 165 73 165 73 165 75 C 165 73 165 73 163 73 C 165 73 165 73 165 71" fill="#EC4899" opacity="0.8" />
+  <circle cx="50" cy="60" r="1" fill="#FFFFFF" opacity="0.6" />
+  <circle cx="150" cy="50" r="1" fill="#FFFFFF" opacity="0.6" />
+
+  <!-- Winding Pathways (Roads) -->
+  <!-- Left Pathway -->
+  <path
+    d="M 65 160 C 60 140, 55 110, 80 95 C 95 85, 110 70, 126 36"
+    fill="none"
+    stroke="url(#leftRoadGrad)"
+    strokeWidth="11"
+    strokeLinecap="round"
+  />
+  <path
+    d="M 65 160 C 60 140, 55 110, 80 95 C 95 85, 110 70, 126 36"
+    fill="none"
+    stroke="#FFFFFF"
+    strokeWidth="1"
+    strokeDasharray="2 3"
+    opacity="0.5"
+  />
+
+  <!-- Right Pathway -->
+  <path
+    d="M 148 135 C 142 110, 150 90, 138 75 C 128 62, 126 48, 126 36"
+    fill="none"
+    stroke="url(#rightRoadGrad)"
+    strokeWidth="9"
+    strokeLinecap="round"
+  />
+  <path
+    d="M 148 135 C 142 110, 150 90, 138 75 C 128 62, 126 48, 126 36"
+    fill="none"
+    stroke="#FFFFFF"
+    strokeWidth="1"
+    strokeDasharray="2 3"
+    opacity="0.5"
+  />
+
+  <!-- Milestones -->
+  <!-- Left path A1 -->
+  <circle cx="65" cy="160" r="11" fill="#06B6D4" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="65" y="163.5" fill="#FFFFFF" fontSize="9" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">A1</text>
+
+  <!-- Left path B1 -->
+  <circle cx="70" cy="122" r="10" fill="#2563EB" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="70" y="125" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">B1</text>
+
+  <!-- Left path A2 -->
+  <circle cx="85" cy="94" r="10" fill="#3B82F6" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="85" y="97" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">A2</text>
+
+  <!-- Left path B2 -->
+  <circle cx="106" cy="74" r="10" fill="#0EA5E9" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="106" y="77" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">B2</text>
+
+  <!-- Right path C1 -->
+  <circle cx="148" cy="135" r="11" fill="#7C3AED" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="148" y="138.5" fill="#FFFFFF" fontSize="9" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">C1</text>
+
+  <!-- Right path B2 Lower -->
+  <circle cx="140" cy="106" r="10" fill="#D946EF" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="140" y="109" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">B2</text>
+
+  <!-- Right path B2 Middle/Upper -->
+  <circle cx="134" cy="80" r="10" fill="#EC4899" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="134" y="83" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">B2</text>
+
+  <!-- Right path B2 Upper -->
+  <circle cx="128" cy="56" r="10" fill="#F59E0B" stroke="#FFFFFF" strokeWidth="1.5" />
+  <text x="128" y="59" fill="#FFFFFF" fontSize="8" fontWeight="bold" fontFamily="system-ui, sans-serif" textAnchor="middle">B2</text>
+
+  <!-- Smart processor chip at the center of the crossways -->
+  <g id="center-ai-chip">
+    <!-- Pin extensions (gold/cyan look) -->
+    <!-- TOP pins -->
+    <line x1="94" y1="84" x2="94" y2="90" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="100" y1="84" x2="100" y2="90" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="106" y1="84" x2="106" y2="90" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    
+    <!-- BOTTOM pins -->
+    <line x1="94" y1="120" x2="94" y2="126" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="100" y1="120" x2="100" y2="126" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="106" y1="120" x2="106" y2="126" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+
+    <!-- LEFT pins -->
+    <line x1="78" y1="99" x2="84" y2="99" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="78" y1="105" x2="84" y2="105" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="78" y1="111" x2="84" y2="111" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+
+    <!-- RIGHT pins -->
+    <line x1="116" y1="99" x2="122" y2="99" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="116" y1="105" x2="122" y2="105" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+    <line x1="116" y1="111" x2="122" y2="111" stroke="#60A5FA" strokeWidth="1.2" strokeLinecap="round" />
+
+    <!-- Core chip body -->
+    <rect x="84" y="90" width="32" height="30" rx="4" ry="4" fill="url(#chipGrad)" stroke="#3B82F6" strokeWidth="1.2" />
+    
+    <!-- AI Monospace Text inside chip -->
+    <text x="100" y="109" fill="#FFFFFF" fontSize="11" fontWeight="900" fontFamily="system-ui, monospace" textAnchor="middle" letterSpacing="0.5">AI</text>
+  </g>
+
+  <!-- Destination peak: Glowing Orange Star -->
+  <g id="apex-star">
+    <circle cx="126" cy="32" r="16" fill="url(#aiStarGlow)" />
+    <!-- 5 pointed star at apex position of meeting paths -->
+    <polygon
+      points="126,18 129,26 137,26 131,31 133,38 126,34 119,38 121,31 115,26 123,26"
+      fill="#F59E0B"
+      stroke="#FEF08A"
+      strokeWidth="1.2"
+    />
+    <circle cx="126" cy="30.5" r="2" fill="#FFFFFF" />
+  </g>
+</svg>

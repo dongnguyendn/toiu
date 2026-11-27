@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "scenarios": [
+    {
+      "id": "sc_restaurant",
+      "title": "Tại Nhà Hàng (At the Restaurant)",
+      "character": "Waitress (Sarah)",
+      "situation": "Bạn muốn đặt bàn, gọi các món bít tết và tráng miệng, cũng như thanh toán hóa đơn bữa tối.",
+      "firstMessage": "Welcome to Bella Italia! Do you have a reservation for tonight, or would you like me to find you an available table?",
+      "starterSuggestions": [
+        "I have a reservation for two under the name John.",
+        "Could we have a table near the window, please?",
+        "What do you recommend as today's special steak dish?"
+      ]
+    },
+    {
+      "id": "sc_hotel",
+      "title": "Quầy Lễ Tân Khách Sạn (Hotel Check-In)",
+      "character": "Receptionist (Andrew)",
+      "situation": "Bạn đã book phòng Deluxe trực tuyến, bây giờ muốn nhận phòng, hỏi về mật khẩu Wi-Fi, và giờ ăn sáng.",
+      "firstMessage": "Good afternoon! Welcome to the Grand Plaza Resort. How may I assist you with your booking today?",
+      "starterSuggestions": [
+        "Hi, I would like to check in. I have a booking under Michael.",
+        "Is complimentary buffet breakfast included in my room package?",
+        "Could you tell me the Wi-Fi password and where the fitness center is?"
+      ]
+    },
+    {
+      "id": "sc_airport",
+      "title": "Thủ Tục Tìm Hành Lý Thất Lạc (At the Airport Lost & Found)",
+      "character": "Airport Staff (Ms. Jenkins)",
+      "situation": "Hành lý ký gửi của bạn không xuất hiện trên băng chuyền sau chuyến bay quốc tế dài. Bạn muốn nhờ hỗ trợ.",
+      "firstMessage": "Hello, this is the Baggage Assistance Counter. Are you experiencing issues with your luggage today?",
+      "starterSuggestions": [
+        "Yes, my suitcase did not come out on conveyor belt number four.",
+        "It is a medium-sized, black hardshell luggage with a red ribbon tied on top."
+      ]
+    }
+  ]
+}

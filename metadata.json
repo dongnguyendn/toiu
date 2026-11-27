@@ -1,0 +1,6 @@
+{
+  "name": "CEFR Pathway AI",
+  "description": "Lộ trình học và rèn luyện tiếng Anh thích ứng theo chuẩn khung Châu Âu CEFR đồng hành bởi cố vấn AI xuất sắc.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

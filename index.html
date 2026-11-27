@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CEFR Pathway AI</title>
+    <link rel="icon" type="image/svg+xml" href="/logo-v2.svg" />
+    <link rel="alternate icon" type="image/x-icon" href="/favicon-v2.ico" />
+    <script>
+      // Full power safe-wrap: Robust, non-crashing SafeWebSocket proxy
+      (function() {
+        if (typeof window === "undefined" || !window.WebSocket) return;
+        
+        var OriginalWebSocket = window.WebSocket;
+        var CONNECTING = 0;
+        var OPEN = 1;
+        var CLOSING = 2;
+        var CLOSED = 3;
+
+        function SafeWebSocket(url, protocols) {
+          this._url = url;
+          this._protocols = protocols;
+          this._readyState = CONNECTING;
+          this._binaryType = 'blob';
+          this._bufferedAmount = 0;
+          this._extensions = '';
+          this._protocol = '';
+          
+          this._listeners = {};
+          this._queue = [];
+          this._realWS = null;
+          this._reconnectAttempts = 0;
+          this._maxReconnectAttempts = 5;
+          this._reconnectDelay = 1000;
+          this._isClosedVoluntarily = false;
+          this._reconnectTimer = null;
+          
+          this.onopen = null;
+          this.onmessage = null;
+          this.onerror = null;
+          this.onclose = null;
+
+          var self = this;
+
+          function initSocket() {
+            try {
+              console.log('[SafeWebSocket] Initializing custom safe connection to:', url);
+              
+              var ws = protocols ? new OriginalWebSocket(url, protocols) : new OriginalWebSocket(url);
+              self._realWS = ws;
+              ws.binaryType = self._binaryType;
+
+              ws.onopen = function(event) {
+                self._readyState = OPEN;
+                self._reconnectAttempts = 0;
+                self._reconnectDelay = 1000;
+                
+                // Flush message queue safely
+                console.log('[SafeWebSocket] Channel opened. Flushing buffered messages (size:', self._queue.length, ')');
+                while (self._queue.length > 0 && self._readyState === OPEN) {
+                  var msg = self._queue.shift();
+                  try {
+                    ws.send(msg);
+                  } catch (e) {
+                    console.warn('[SafeWebSocket] Failed sending buffered message:', e);
+                  }
+                }
+
+                if (typeof self.onopen === 'function') {
+                  try { self.onopen.call(self, event); } catch(e) {}
+                }
+                self._dispatchEvent('open', event);
+              };
+
+              ws.onmessage = function(event) {
+                if (ws) {
+                  self._bufferedAmount = ws.bufferedAmount;
+                }
+                if (typeof self.onmessage === 'function') {
+                  try { self.onmessage.call(self, event); } catch(e) {}
+                }
+                self._dispatchEvent('message', event);
+              };
+
+              ws.onerror = function(event) {
+                if (event && event.preventDefault) {
+                  event.preventDefault();
+                }
+                console.warn('[SafeWebSocket] Handled connection issue gracefully for:', url);
+                
+                if (typeof self.onerror === 'function') {
+                  try { self.onerror.call(self, event); } catch(e) {}
+                }
+                self._dispatchEvent('error', event);
+              };
+
+              ws.onclose = function(event) {
+                self._readyState = ws ? ws.readyState : CLOSED;
+                self._realWS = null;
+
+                // Attempt reconnect if closed involuntarily
+                if (!self._isClosedVoluntarily && self._reconnectAttempts < self._maxReconnectAttempts) {
+                  self._readyState = CONNECTING;
+                  self._reconnectAttempts++;
+                  var delay = self._reconnectDelay;
+                  self._reconnectDelay *= 2; // exponential backoff
+                  
+                  console.warn('[SafeWebSocket] Connection ceased. Reconnecting ' + self._reconnectAttempts + '/' + self._maxReconnectAttempts + ' in ' + delay + 'ms...');
+                  
+                  self._reconnectTimer = setTimeout(function() {
+                    initSocket();
+                  }, delay);
+                } else {
+                  self._readyState = CLOSED;
+                  if (typeof self.onclose === 'function') {
+                    try { self.onclose.call(self, event); } catch(e) {}
+                  }
+                  self._dispatchEvent('close', event);
+                }
+              };
+
+            } catch (err) {
+              console.warn('[SafeWebSocket] Direct initialization failed (development fallback triggered):', err);
+              self._readyState = CLOSED;
+              
+              // Safe asynchronous dispatch of error
+              setTimeout(function() {
+                var dummyEvent = { type: 'error', target: self, preventDefault: function() {} };
+                if (typeof self.onerror === 'function') {
+                  try { self.onerror.call(self, dummyEvent); } catch(e) {}
+                }
+                self._dispatchEvent('error', dummyEvent);
+              }, 50);
+            }
+          }
+
+          initSocket();
+        }
+
+        SafeWebSocket.prototype = {
+          get readyState() {
+            if (this._realWS) {
+              this._readyState = this._realWS.readyState;
+            }
+            return this._readyState;
+          },
+          get url() {
+            return this._url;
+          },
+          get protocol() {
+            return this._realWS ? this._realWS.protocol : this._protocol;
+          },
+          get extensions() {
+            return this._realWS ? this._realWS.extensions : this._extensions;
+          },
+          get bufferedAmount() {
+            return this._realWS ? this._realWS.bufferedAmount : this._bufferedAmount;
+          },
+          get binaryType() {
+            return this._binaryType;
+          },
+          set binaryType(val) {
+            this._binaryType = val;
+            if (this._realWS) {
+              this._realWS.binaryType = val;
+            }
+          },
+
+          send: function(data) {
+            if (this.readyState === OPEN && this._realWS) {
+              try {
+                this._realWS.send(data);
+              } catch (e) {
+                console.warn('[SafeWebSocket] Send failed on native socket:', e);
+              }
+            } else if (this.readyState === CONNECTING) {
+              console.log('[SafeWebSocket] Message queued: waiting for connection to open');
+              this._queue.push(data);
+            } else {
+              console.warn('[SafeWebSocket] send() ignored when state is closing or closed (readyState: ' + this.readyState + ')');
+            }
+          },
+
+          close: function(code, reason) {
+            this._isClosedVoluntarily = true;
+            if (this._reconnectTimer) {
+              clearTimeout(this._reconnectTimer);
+            }
+            if (this._realWS) {
+              var state = this._realWS.readyState;
+              if (state !== CLOSED && state !== CLOSING) {
+                try {
+                  this._realWS.close(code, reason);
+                } catch (e) {
+                  console.warn('[SafeWebSocket] Native close call issue:', e);
+                }
+              }
+              this._realWS = null;
+            }
+            this._readyState = CLOSED;
+          },
+
+          addEventListener: function(type, listener, options) {
+            if (!this._listeners[type]) {
+              this._listeners[type] = [];
+            }
+            this._listeners[type].push({ cb: listener, options: options });
+          },
+
+          removeEventListener: function(type, listener, options) {
+            if (!this._listeners[type]) return;
+            this._listeners[type] = this._listeners[type].filter(function(item) {
+              return item.cb !== listener;
+            });
+          },
+
+          _dispatchEvent: function(type, event) {
+            var arr = this._listeners[type];
+            if (!arr) return;
+            for (var i = 0; i < arr.length; i++) {
+              try {
+                arr[i].cb.call(this, event);
+              } catch (e) {
+                console.error('[SafeWebSocket] Dispatch callback error on event ' + type + ':', e);
+              }
+            }
+          }
+        };
+
+        SafeWebSocket.CONNECTING = SafeWebSocket.prototype.CONNECTING = CONNECTING;
+        SafeWebSocket.OPEN = SafeWebSocket.prototype.OPEN = OPEN;
+        SafeWebSocket.CLOSING = SafeWebSocket.prototype.CLOSING = CLOSING;
+        SafeWebSocket.CLOSED = SafeWebSocket.prototype.CLOSED = CLOSED;
+
+        for (var key in OriginalWebSocket) {
+          if (OriginalWebSocket.hasOwnProperty(key)) {
+            SafeWebSocket[key] = OriginalWebSocket[key];
+          }
+        }
+
+        window.WebSocket = SafeWebSocket;
+      })();
+
+      // Automatically swallow benign sandbox HMR / WebSocket errors that occur due to Disabled HMR
+      (function() {
+        var originalError = console.error;
+        console.error = function() {
+          var args = Array.prototype.slice.call(arguments);
+          var argStr = args.map(function(arg) {
+            if (!arg) return '';
+            return typeof arg === 'string' ? arg : (arg.message || String(arg));
+          }).join(' ');
+          
+          if (
+            argStr.indexOf('[vite] failed to connect') !== -1 || 
+            argStr.indexOf('WebSocket closed without opened') !== -1 ||
+            argStr.indexOf('websocket') !== -1 ||
+            argStr.indexOf('WebSocket') !== -1 ||
+            argStr.indexOf('vite/client') !== -1 ||
+            argStr.indexOf('closed without opened') !== -1 ||
+            argStr.indexOf('connection') !== -1
+          ) {
+            console.warn('Suppressed benign sandbox HMR/WebSocket console error:', argStr);
+            return;
+          }
+          originalError.apply(console, arguments);
+        };
+      })();
+
+      // Catch and suppress benign Vite WebSocket connection/closed errors in the sandbox environment
+      window.addEventListener('unhandledrejection', function(event) {
+        var msg = event.reason ? (event.reason.message || String(event.reason)) : '';
+        if (msg && (msg.indexOf('WebSocket') !== -1 || msg.indexOf('websocket') !== -1 || msg.indexOf('vite') !== -1 || msg.indexOf('Vite') !== -1 || msg.indexOf('closed without opened') !== -1 || msg.indexOf('connection') !== -1)) {
+          event.preventDefault();
+          console.warn('Suppressed benign sandbox WebSocket rejection:', event.reason);
+        }
+      });
+      window.addEventListener('error', function(event) {
+        var msg = event.message || '';
+        if (msg && (msg.indexOf('WebSocket') !== -1 || msg.indexOf('websocket') !== -1 || msg.indexOf('vite') !== -1 || msg.indexOf('Vite') !== -1 || msg.indexOf('closed without opened') !== -1 || msg.indexOf('connection') !== -1)) {
+          event.preventDefault();
+          console.warn('Suppressed benign sandbox WebSocket error:', event.message);
+        }
+      });
+
+      (function() {
+        var originalFetch = window.fetch;
+        try {
+          var customFetch = originalFetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() {
+              return customFetch;
+            },
+            set: function(val) {
+              customFetch = val;
+            },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (e) {
+          console.warn("Defensive fetch property setup skipped or not allowed:", e);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

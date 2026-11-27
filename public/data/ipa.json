@@ -1,0 +1,19 @@
+{
+  "success": true,
+  "ipaChart": {
+    "vowels": [
+      { "ipa": "i:", "type": "long", "description": "Nguyên âm dài. Căng môi sang hai bên rộng như đang cười, nâng lưỡi cao.", "sampleWord": "see", "translation": "nhìn thấy" },
+      { "ipa": "ɪ", "type": "short", "description": "Nguyên âm ngắn. Miệng hơi mở tự nhiên, âm bật dứt khoát.", "sampleWord": "sit", "translation": "ngồi" },
+      { "ipa": "e", "type": "short", "description": "Nguyên âm ngắn. Miệng mở nhẹ theo chiều dọc, cơ miệng lỏng.", "sampleWord": "pen", "translation": "bút viết" },
+      { "ipa": "æ", "type": "short", "description": "Nguyên âm bẹt. Hạ hàm sâu xuống, kéo căng mép sang hai bên.", "sampleWord": "cat", "translation": "con mèo" }
+    ],
+    "consonants": [
+      { "ipa": "p", "type": "voiceless", "description": "Âm vô thanh. Mím chặt hai môi rồi bật hơi ra thật mạnh.", "sampleWord": "pen", "translation": "bút" },
+      { "ipa": "b", "type": "voiced", "description": "Âm hữu thanh. Mím chặt hai môi rồi bật hơi kết hợp rung thanh quản.", "sampleWord": "boy", "translation": "cậu bé" }
+    ]
+  },
+  "pronunciationLessons": [
+    { "id": "ipa_short_i", "name": "Nguyên âm ngắn /ɪ/", "description": "Bắt âm ngắn trong từ 'sit'.", "topic": "IPA Vowel", "audioText": "sit" },
+    { "id": "ipa_long_i", "name": "Nguyên âm dài /i:/", "description": "Bắt âm dài trong từ 'see'.", "topic": "IPA Vowel", "audioText": "see" }
+  ]
+}

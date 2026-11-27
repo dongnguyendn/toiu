@@ -1,0 +1,38 @@
+{
+  "success": true,
+  "exams": [
+    {
+      "id": "exm_ielts_1",
+      "title": "IELTS Academic Mock Practice - Test 1",
+      "type": "IELTS",
+      "durationMinutes": 180,
+      "questionsCount": 4,
+      "description": "Bao gồm đầy đủ các phần thi chính (Listening, Reading, Writing, Speaking) được tự động đánh giá chuyên sâu bởi AI.",
+      "sections": [
+        {
+          "name": "Listening Section",
+          "prompt": "Nghe audio và trả lời câu hỏi: The speaker talks about green architecture. What is the main argument?",
+          "passage": "Good morning class. Today we will examine how modern buildings integrate green vertical gardens. The objective is not merely aesthetic elegance. It is, in fact, highly pragmatic: reducing heat radiation in core cities...",
+          "options": ["A. Aesthetic beauty", "B. Reducing heat radiation in cities", "C. Boosting real estate prices", "D. Creating tourism attractions"],
+          "correctAnswer": "B"
+        }
+      ]
+    },
+    {
+      "id": "exm_toeic_1",
+      "title": "TOEIC Full Length Practice - Test 1",
+      "type": "TOEIC",
+      "durationMinutes": 120,
+      "questionsCount": 2,
+      "description": "Thiết kế chuẩn cấu trúc đề thi TOEIC Listening & Reading New Format từ ETS.",
+      "sections": [
+        {
+          "name": "Listening (Part 2 - Questions and Answers)",
+          "prompt": "You hear: 'Where should I submit the annual financial audit spreadsheet?' Options:",
+          "options": ["A. Yes, I checked the accounts yesterday", "B. To Ms. Garcia in Room 502", "C. Next Tuesday morning", "D. The audit was very easy"],
+          "correctAnswer": "B"
+        }
+      ]
+    }
+  ]
+}
